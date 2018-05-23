@@ -424,6 +424,8 @@ class EventMonitor(ViewportPlugin):
     x, y = textview.window_to_buffer_coords(gtk.TextWindowType.WIDGET,
                                              int(event.x), int(event.y))
     iter = textview.get_iter_at_location(x, y)
+    if isinstance(iter, tuple):
+      iter = iter[1]
     cursor = gdk.Cursor(gdk.CursorType.XTERM)
     for tag in iter.get_tags():
       if getattr(tag, 'islink'):
